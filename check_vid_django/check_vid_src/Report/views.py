@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 from extractor.views import get_transcript_df
-from Words.views import swear_words, sex_words
+from Words.views import swear_words, sex_words, stop_words
 
 from django.http import HttpResponse
 import json
@@ -13,7 +13,7 @@ from time import time
 from gensim.models import Word2Vec, KeyedVectors
 from gensim.test.utils import get_tmpfile
 import string
-from nltk.corpus import stopwords
+#from nltk.corpus import stopwords
 import nltk
 lemma=nltk.stem.WordNetLemmatizer()#from nltk.stem import WordNetLemmatizer as lemma
 
@@ -40,7 +40,7 @@ def text_process(mess):
     nopunc = ''.join(nopunc)
     
     # Now just remove any stopwords
-    nostop=[word for word in nopunc.split() if word.lower() not in stopwords.words('english')]
+    nostop=[word for word in nopunc.split() if word.lower() not in stop_words()]
     nostop=' '.join(nostop)
     nostop=nostop.replace('ass','asss')
 
