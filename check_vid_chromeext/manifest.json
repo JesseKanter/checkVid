@@ -1,0 +1,25 @@
+{
+  "name": "CheckVid",
+  "version": "0.0.2",
+  "manifest_version": 2,
+  "description": "augmenting checking youtube videos for parents",
+  "icons": {
+  "128": "icons/Logo.png"
+  },
+  "background": {
+    "scripts": ["src/bg/background.js"],
+    "persistent": false
+  },
+  "default_locale": "en",
+  "browser_action": {
+  "default_icon": "icons/Logo_greyscale.png",
+  "default_title": "check_vid",
+  "default_popup": "src/browser_action/browser_action.html"
+  },
+  "permissions": [
+  "storage",
+  "tabs",
+  "webNavigation",
+  "background"
+  ]
+}
