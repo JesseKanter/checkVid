@@ -152,8 +152,8 @@ def sex_words():
  'sexy',
  'striptease']
 
- def stop_words():
- 	return ['i',
+def stop_words():
+        return ['i',
  'me',
  'my',
  'myself',
