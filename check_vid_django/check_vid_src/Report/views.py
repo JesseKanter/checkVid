@@ -94,6 +94,10 @@ def rate_pd(tran_pd,rate_with=5):
     rating=number_to_warning(tran_pd.score.sort_values(ascending=False).head(rate_with).mean())
     return [tran_pd,rating]
 
+def sec_to_clock(t):
+    t=int(t)
+    return str(t//3600) + ':' + str(t%3600//60) + ':' + str( t%3600%60  )
+
 
 def Report(request):   #request
     # get inputs from request:
@@ -120,7 +124,7 @@ def Report(request):   #request
         while i < len(Report_df):
             redFlag_text=Report_df.iloc[i].text
             redFlag_score=Report_df.iloc[i].warning
-            redFlag_start=Report_df.iloc[i].start
+            redFlag_start=sec_to_clock(Report_df.iloc[i].start)
             redFlag_duration=Report_df.iloc[i].duration
 
 
