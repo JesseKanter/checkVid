@@ -6,7 +6,7 @@ function load() {
 
   chrome.storage.local.get("rating", function(data) {
     if(typeof(data.rating) !== "undefined") {
-      report_text.innerHTML = 'This video is '+data.rating+'\n\n';
+      report_text.innerHTML = 'This video is '+data.rating+'<br><br>';
 
       
     }
@@ -44,7 +44,7 @@ function load() {
 
         // Container for the Redflag score and start time.
         var div = document.createElement("a");
-        div.innerHTML = 'This part of the video is '+flag_score+ '. At time: '+flag_start +'seconds';
+        div.innerHTML = 'At  '+flag_start+ ' the video is '+flag_score +'<br> Here is the text from that time:';
         div.setAttribute("class", "flag _description");
         // //provide link to author's page
         // div.setAttribute("href",comment_authorLink);
@@ -103,7 +103,7 @@ function get_report(url, personal){
   // this function fetches the comments relevant to the time solt (start, start+duration)
   // of the video, stores them in local storage, sets extension icon to color and
   // calls the load function to put comments in the new html of the extension.
-  var api_server = "http://127.0.0.1:8000/";//"http://52.90.31.24:8000/";
+  var api_server = "http://127.0.0.1:8000/"; //"http://52.90.31.24:8000/"; 
 
 
 
