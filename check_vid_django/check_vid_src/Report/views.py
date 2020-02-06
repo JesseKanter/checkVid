@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 from extractor.views import get_transcript_df
-from Words.views import swear_words, sex_words, stop_words
+from Words.views import swear_words,  sex_words, stop_words #swear_words_model,sex_words_model
 
 from django.http import HttpResponse
 import json
@@ -49,13 +49,12 @@ def text_process(mess):
         
         
     return ' '.join(lemmatized)
-def text_score(text,badwords,fuzz_thresh=70):
-    n=len(text.split()) # number of words in text
-    text_score_all=[]
+def text_score(text,badwords):#,badwords_model):#
+    text_score_all=0
     
     
     if not only_model_words(text,model).split():
-        text_score_all=[0]
+        text_score_all=0
     else:
         for E in only_model_words(text,model).split():
             score=0
@@ -63,12 +62,15 @@ def text_score(text,badwords,fuzz_thresh=70):
                 if word in model.vocab:
                     if model.similarity(E,word)>score:
                         score=model.similarity(E,word)
-                text_score_all+=[score]
-    # for word in text.split():
-    #     for bad_word in badwords:
-    #         if fuzz.ratio(word,bad_word)>fuzz_thresh:
-    #             text_score_all+=[fuzz.ratio(word,bad_word)/100]
-    return max(text_score_all)
+                        if score>text_score_all:
+                            text_score_all=score
+    for word in ['fuc','shit','crap','bitch']:
+        if word in text:
+            text_score_all=1
+    for word in badwords:
+        if word in text.split():
+            text_score_all=1
+    return text_score_all
 
 def only_model_words(text,model):
     new_text=[]
@@ -88,8 +90,8 @@ def number_to_warning(n):
         return 'probably fine'
 
 def rate_pd(tran_pd,rate_with=5):
-    
-    tran_pd['score']=tran_pd.text.apply(lambda t: text_score(text_process(t),swear_words(),fuzz_thresh=90))
+    #, badwords_model=swear_words_model() + sex_words_model()
+    tran_pd['score']=tran_pd.text.apply(lambda t: text_score(text_process(t), badwords = swear_words() + sex_words() ) )
     tran_pd['warning']=tran_pd.score.apply(lambda n: number_to_warning(n) )    
     rating=number_to_warning(tran_pd.score.sort_values(ascending=False).head(rate_with).mean())
     return [tran_pd,rating]
