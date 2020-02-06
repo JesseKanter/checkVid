@@ -4,14 +4,14 @@ function load() {
   // Get the report_text container 
   var report_text= document.getElementById("report_text");
 
-  chrome.storage.local.get("rating", function(data) {
-    if(typeof(data.rating) !== "undefined") {
-      report_text.innerHTML = 'This video is '+data.rating+'<br><br>';
+  // chrome.storage.local.get("rating", function(data) {
+  //   if(typeof(data.rating) !== "undefined") {
+  //     report_text.innerHTML = 'This video is '+data.rating+'<br><br>';
 
       
-    }
+  //   }
 
-  }) 
+  // }) 
   
 
 
@@ -21,7 +21,9 @@ function load() {
     // If the data is updated
     if(typeof(data.Report) !== "undefined") {
 
-      
+
+      report_text.innerHTML = 'Below are times and text of the more questionable parts of this video<br><br>';
+    
 
       
 
@@ -44,14 +46,15 @@ function load() {
 
         // Container for the Redflag score and start time.
         var div = document.createElement("a");
-        div.innerHTML = 'At  '+flag_start+ ' the video is '+flag_score +'<br> Here is the text from that time:';
+        div.innerHTML = 'At  '+flag_start;//+ ' the video is '+flag_score +'<br> Here is the text from that time:';
         div.setAttribute("class", "flag _description");
         // //provide link to author's page
         // div.setAttribute("href",comment_authorLink);
         var p = document.createElement("p");
 
         //comment text
-        p.innerHTML = flag_text;
+        // <p style="color:blue;font-size:50px;"></p>
+        p.innerHTML = '"' + flag_text + '"';
         // // Open a blank tab when the link is clicked.
         // p.setAttribute("target", "_blank");
 
@@ -145,7 +148,7 @@ document.getElementById('check').onclick = function() {
   // and entering them into the new html of the extension
 
   //get start and duration times as strings
-  var personal = document.getElementById('personal').value;
+  //var personal = document.getElementById('personal').value;
   
   // clear the current storage, in case comments from a prevoius run are still in storage
   reset();
@@ -153,7 +156,7 @@ document.getElementById('check').onclick = function() {
     // get current url, and use the video id in that url to fetch comments
   chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
     url = tabs[0].url;
-    get_report(url, personal)  
+    get_report(url)//, personal)  
     });
 
 };

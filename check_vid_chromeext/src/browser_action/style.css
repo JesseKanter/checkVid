@@ -4,7 +4,7 @@ body {
   max-width: 100%;
 }
 
-.event_container {
+.Report_container {
   /*display: none;*/
   /*display: block;*/
   /*left: 0;*/
@@ -13,6 +13,7 @@ body {
   /*width: 210px; */
   height: 50px;
   width: 400px;
+  font-size:18px;
   /*box-shadow: 0 3px 10px hsl(0, 0%, 30%);*/
   font-family: Helvetica, Arial, sans-serif;
   /*font-family: Georgia, Helvetica, Arial, sans-serif;*/
