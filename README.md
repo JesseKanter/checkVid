@@ -6,7 +6,7 @@ Youtube makes efforts to have strict parental controls and a kid friendly ‘You
 
 
 # The Chrome Extension  
-The files for the chrome extenion are in  [```./check_vid_chromeex```](./check_vid_chromeex) takes inputs Start and Duration for a selected time slot of a YouTube video, and the video's id. It then sends the times and video id to a remote API server and retrieves from that server the comments most relevant to selected time slot of the video. The extension returns the comments as a list in the display window. The source code for the API server and other information can be found in this
+The files for the chrome extenion are in  [```./check_vid_chromeext```](./check_vid_chromeext) takes inputs Start and Duration for a selected time slot of a YouTube video, and the video's id. It then sends the times and video id to a remote API server and retrieves from that server the comments most relevant to selected time slot of the video. The extension returns the comments as a list in the display window. The source code for the API server and other information can be found in this
 
 
 
