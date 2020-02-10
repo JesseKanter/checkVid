@@ -13,7 +13,17 @@ from time import time
 from gensim.models import Word2Vec, KeyedVectors
 from gensim.test.utils import get_tmpfile
 import string
+#<<<<<<< HEAD
+#<<<<<<< HEAD
+#=======
+#from nltk.corpus import stopwords
+#>>>>>>> d157a4af14bac5133c0b210e3c62bee1086f3222
+#=======
+#>>>>>>> 6194741edea21d9add625bb85e3a748d4f43ece4
 import nltk
+from nltk.corpus import stopwords
+#from nltk.corpus import stopwords
+
 lemma=nltk.stem.WordNetLemmatizer()#from nltk.stem import WordNetLemmatizer as lemma
 
 
