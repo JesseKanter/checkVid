@@ -109,6 +109,14 @@ def sec_to_clock(t):
     t=int(t)
     return str(t//3600) + ':' + str(t%3600//60) + ':' + str( t%3600%60  )
 
+def replace_swears_stars(text):
+    
+    for word in ['fuck','shit','bitch','crap','ass']:
+        text=text.replace(word,word[0]+'*'*(len(word)-1))
+            
+    return text
+    
+
 
 def Report(request):   #request
     # get inputs from request:
@@ -125,6 +133,7 @@ def Report(request):   #request
     [Report_df,rating] = rate_pd(tran_pd, rate_with=5)
 
     Report_df=Report_df.sort_values(by='score',ascending=False).head(5)
+    Report_df['censored_text']=Report_df.text.apply(lambda t: replace_swears_stars(t))
 
     # if comments are found, use comments in the df and construct the response dict
     Report_list = []
@@ -133,7 +142,7 @@ def Report(request):   #request
         found = True
         i=0
         while i < len(Report_df):
-            redFlag_text=Report_df.iloc[i].text
+            redFlag_text=Report_df.iloc[i].censored_text
             redFlag_score=Report_df.iloc[i].warning
             redFlag_start=sec_to_clock(Report_df.iloc[i].start)
             redFlag_duration=Report_df.iloc[i].duration
