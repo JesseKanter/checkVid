@@ -4,8 +4,8 @@ The overall format of this chrome extension is based on [repo](https://github.co
 
 Youtube makes efforts to have strict parental controls and a kid friendly ‘Youtube Kids’ website. However, 500 hours of videos are uploaded a minute, and inappropriate creators are constantly trying to push their videos past the algorithms that can not be too strict at the risk of severely limiting the market.   I used youtube transcripts to rate videos and mark red flags in a chrome extension that parents can review quickly. I used a Word2Vec model to see how close a video text is to a list of ‘bad’ words as a measure of how non kid friendly the text is. This narrows the problem from millions of videos for youtube to screen exactly right, to just the parent screening single videos effectively and quickly. This also helps youtube to lose less subscribers, who would otherwise leave youtube due to  traumatic child viewership.
 
-# The Chrome Extension  
-The files for the chrome extenion are in the [check_vid_chromeext](./che) folder. 
+# The Background Model Code 
+The files for the chrome extenion are in the [check_vid_django/check_vid_src/](./check_vid_django/check_vid_src/) folder.   
 
 # The Chrome Extension  
 The files for the chrome extenion are in the [check_vid_chromeext](./check_vid_chromeext) folder. 
