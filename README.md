@@ -5,7 +5,12 @@ The overall format of this chrome extension is based on [repo](https://github.co
 Youtube makes efforts to have strict parental controls and a kid friendly ‘Youtube Kids’ website. However, 500 hours of videos are uploaded a minute, and inappropriate creators are constantly trying to push their videos past the algorithms that can not be too strict at the risk of severely limiting the market.   I used youtube transcripts to rate videos and mark red flags in a chrome extension that parents can review quickly. I used a Word2Vec model to see how close a video text is to a list of ‘bad’ words as a measure of how non kid friendly the text is. This narrows the problem from millions of videos for youtube to screen exactly right, to just the parent screening single videos effectively and quickly. This also helps youtube to lose less subscribers, who would otherwise leave youtube due to  traumatic child viewership.
 
 # The Background Model Code 
-The files for the chrome extenion are in the [check_vid_django/check_vid_src/](./check_vid_django/check_vid_src/) folder.   
+The files for the background model code are in the [check_vid_django/check_vid_src/](./check_vid_django/check_vid_src/) folder. These files are on an EC2 instance where the django is running to listen for a fetch() call from the chrome extention.
+
+There are three main folders for the code
+1. Extractor - has the code to run an api that retrieves Youtube transcripts and convert them to a pandas dataframe. 
+2. Words - has a list of bad words I search for in videos
+3. Report - uses the above folders to search for inappropriate material in the transcripts and returns a scoring that is converted into red flags of the top 5 most problematic portions of the video. The score is made using a Word2Vec model to compare the transcripts with the list of bad words. The weights for the Word2Vec model are from the well known [GoogleNews-vectors-negative300](https://code.google.com/archive/p/word2vec/)
 
 # The Chrome Extension  
 The files for the chrome extenion are in the [check_vid_chromeext](./check_vid_chromeext) folder. 
