@@ -6,7 +6,9 @@ Youtube makes efforts to have strict parental controls and a kid friendly ‘You
 
 
 # The Chrome Extension  
-The files for the chrome extenion are in the [check_vid_chromeext](./check_vid_chromeext) folder.  takes inputs Start and Duration for a selected time slot of a YouTube video, and the video's id. It then sends the times and video id to a remote API server and retrieves from that server the comments most relevant to selected time slot of the video. The extension returns the comments as a list in the display window. The source code for the API server and other information can be found in this
+The files for the chrome extenion are in the [check_vid_chromeext](./check_vid_chromeext) folder. 
+
+takes inputs Start and Duration for a selected time slot of a YouTube video, and the video's id. It then sends the times and video id to a remote API server and retrieves from that server the comments most relevant to selected time slot of the video. The extension returns the comments as a list in the display window. The source code for the API server and other information can be found in this
 
 
 
@@ -35,10 +37,10 @@ There are four components in the the Chrome extension: manifest (```./manifest.j
 
 Manifest is the starting point of the extension. The basic info (extension name, description, etc), location of resources, and permissions are all stored in [```./manifest.json```](./manifest.json).
 
-The [```./src/bg/background.js```](./src/bg/background.js) is currently oboslete for this chroem extension.
+The [```./src/bg/background.js```](./src/bg/background.js) is soley used to blank the data and output of the chrome extention when the url is reloaded.
 
 The functions that do most of the work are stored in [```./src/browser_action/browser_action.js
-```](./src/browser_action/browser_action.js). A function that listens for the click of a "submit" button is added (document.getElementById('submit').onclick) so that the user will start the process after entering in the start and duration times for the time slot of the video they want to find relevant comments for. The video id is extracted from the URL, and sent along with the start and duration times to the API server. When relevant comments are found, the comments info will be returned in json strings from the API server and then stored locally (```chrome.storage.local.set()```). The icon will be changed (```chrome.browserAction.setIcon()```) to notify the user. the comments will then be retrieved from the browser's local storage space (```chrome.storage.local.get()```). If the space is not empty, a comment listing page will be constructed, using the styles defined in [```./browser_action/browser_action/style.css```](./src/browser_action/style.css). If the process fails, the initial display will not change.
+```](./src/browser_action/browser_action.js). A function that listens for the click of a "submit" button is added (document.getElementById('submit').onclick) so that the user will start the process when they are ready. The video id is extracted from the URL, and sent to an EC2 instance on AWS, which hosts an ongoing djagno process. The Dajngo process is used to put the video_id as an input to the background model and to recive the report of red flags in the video anan output. The report is returned in json strings and then stored locally (```chrome.storage.local.set()```). The icon will be changed (```chrome.browserAction.setIcon()```) to notify the user. the red flags will then be retrieved from the browser's local storage space (```chrome.storage.local.get()```). If the space is not empty, a comment listing page will be constructed, using the styles defined in [```./browser_action/browser_action/style.css```](./src/browser_action/style.css). If the process fails, the initial display will not change.
 
 The locale information is stored in [```./_locales```](./_locales).
 
